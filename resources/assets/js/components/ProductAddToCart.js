@@ -31,11 +31,34 @@ class ProductAddToCart extends Component {
 	showAllSizes = () => {
 		return this.state.sizes.map(size => {
 			return (
-				<div key={size} className="option">
+				<div
+					key={size}
+					className={`option ${
+						this.state.selectedSize == size ? 'selected' : ''
+					}`}
+					onClick={this.clickedSize.bind(null, size)}
+				>
 					{size}
 				</div>
 			);
 		});
+	};
+	clickedSize = selectedSize => {
+		this.setState(
+			{
+				selectedSize
+			},
+			() => {
+				console.log(this.state);
+			}
+		);
+	};
+	clickedAddtoCartBtn = () => {
+		if (this.state.selectedSize !== '') {
+			console.log(`Added product size ${this.state.selectedSize}`);
+		} else {
+			console.log('sorry need to add a size');
+		}
 	};
 	render() {
 		return (
@@ -52,7 +75,9 @@ class ProductAddToCart extends Component {
 					</div>
 				</div>
 				<div className="button-area">
-					<div className="button">Add to cart</div>
+					<div className="button" onClick={this.clickedAddtoCartBtn}>
+						Add to cart
+					</div>
 				</div>
 			</div>
 		);
